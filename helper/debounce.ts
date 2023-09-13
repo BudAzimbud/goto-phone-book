@@ -1,6 +1,6 @@
 const debounce = (func: Function, wait: number) => {
-    let timerId;
-    return (...args) => {
+    let timerId: any;
+    return (...args: any) => {
         if (timerId) clearTimeout(timerId);
         timerId = setTimeout(() => {
             func(...args);

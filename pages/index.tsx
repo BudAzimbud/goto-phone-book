@@ -5,12 +5,12 @@ import {
   GET_CONTACT_DETAIL,
 } from "@/graphql/contact";
 import CenterContainer from "@/component/CenterContainer";
-import Table from "@/component/Table";
+import Table, { IColumn } from "@/component/Table";
 import Button from "@/component/Button";
 import { css } from "@emotion/css";
 import Input from "@/component/Input";
 import Row from "@/component/Row";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { debounce } from "@/helper/debounce";
 import { useRouter } from "next/router";
 import Alert from "@/component/Alert";
@@ -19,18 +19,18 @@ const containerAction = css`
   display: flex;
   gap: 10px;
 `;
-interface IContact {
-  id: number;
-  first_name: string;
-  last_name: string;
-  created_at: Date;
-  phones: { number: Number }[];
+class IContact implements IColumn{
+  id: number | undefined;
+  first_name: string | undefined;
+  last_name: string | undefined;
+  created_at: Date | undefined;
+  phones: { number: Number; }[] | undefined;
 }
 
 interface ListContact {
   loading: boolean;
   error: any;
-  contact: IContact[];
+  contact: IColumn[];
 }
 
 export default function Home() {
@@ -53,7 +53,7 @@ export default function Home() {
       },
     }
   );
-  const recallGetContact = (newOffset, newFirstName) => {
+  const recallGetContact = (newOffset:number, newFirstName:string) => {
     const newVariables = {
       limit: 10,
       offset: newOffset * 10,
@@ -65,7 +65,11 @@ export default function Home() {
     refetch(newVariables);
   };
 
-  const [deleteContact, { loadingDelete, errorDelete }] =
+  useEffect(()=>{
+    recallGetContact(offset, firstName);
+  },[])
+
+  const [deleteContact, {  }] =
     useMutation(DELETE_CONTACT);
 
   const columns = [
@@ -90,8 +94,8 @@ export default function Home() {
       name: "Phones",
       render: (item: IContact) => (
         <select style={{ width: "200px",fontSize:'20px' }}>
-          {item.phones.map((phone) => (
-            <option>{phone.number}</option>
+          {item?.phones?.map((phone: any,idx: any) => (
+            <option key={idx}>{phone.number}</option>
           ))}
         </select>
       ),
@@ -121,7 +125,7 @@ export default function Home() {
     },
   ];
 
-  const onSearchByfirstName = debounce((e) => {
+  const onSearchByfirstName = debounce((e:any) => {
     setFirstName(e.target.value);
   }, 500);
 
@@ -152,12 +156,12 @@ export default function Home() {
           columns={columns}
           data={data?.contact}
           loading={loading}
-          onClickHeader={(col) => {
+          onClickHeader={(col:any) => {
             setOrderBy(col);
           }}
           page={offset + 1}
           onButtonRightClick={() => {
-            if (data?.contact?.length < 10) {
+            if (data?.contact?.length || 0 < 10) {
               return;
             }
             setOffset(offset + 1);

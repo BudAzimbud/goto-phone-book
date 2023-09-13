@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
+interface Props{
+  backgroundColor?:string;
+  children?:React.ReactNode
+}
 
-const AlertContainer = styled.div`
+const AlertContainer = styled.div<Props>`
   padding: 15px;
   background-color: ${(props) => props.backgroundColor};
   color: #fff;
@@ -11,13 +15,8 @@ const AlertContainer = styled.div`
   font-weight: bold;
 `;
 
-const AlertIcon = styled.span`
-  font-size: 36px;
-  margin-right: 10px;
-  vertical-align: middle;
-`;
 
-const Alert = ({ children, backgroundColor }) => {
+const Alert = ({ children, backgroundColor = 'red' }:Props) => {
   return (
     <AlertContainer backgroundColor={backgroundColor}>
       {children}

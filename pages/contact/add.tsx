@@ -32,7 +32,7 @@ function AddContact() {
     setPhones(newPhones);
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     const first_name = event.target.first_name.value;
     const last_name = event.target.last_name.value;
@@ -76,7 +76,7 @@ function AddContact() {
               name={`phone${index + 1}`}
               placeholder={`Phone ${index + 1}`}
               value={phone.number}
-              onChange={(e) => handlePhoneChange(index, e.target.value)}
+              onChange={(e: any) => handlePhoneChange(index, e.target.value)}
             />
 
             <button type="button" onClick={() => removePhoneField(index)}>

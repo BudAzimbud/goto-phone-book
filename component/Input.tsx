@@ -23,7 +23,7 @@ const IconContainer = styled.div`
   margin-left: 10px;
 `;
 
-const Input = ({icon,...props}) => {
+const Input = ({icon,...props}: any) => {
 
   return (
     <InputContainer>

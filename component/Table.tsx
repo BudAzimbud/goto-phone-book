@@ -34,8 +34,11 @@ const tdStyles = css`
 const Table = styled.table`
   ${tableStyles}
 `;
-
-const TableHeader = styled.th`
+interface HeaderProps{
+  width?:string;
+  bgColor?:string
+}
+const TableHeader = styled.th<HeaderProps>`
   ${thStyles}
   width: ${(props) => props.width || "auto"};
   background-color: ${(props) => props.bgColor};
@@ -50,12 +53,14 @@ const TableContainer = styled.div`
   width: 100%;
 `;
 
-interface Data {}
-export interface Columns {}
+export interface IColumn{
+
+}
+
 
 type Props = {
-  data: Data[];
-  columns: Columns[];
+  data: IColumn[];
+  columns: IColumn[];
   loading: boolean;
   page: number;
   onButtonRightClick: () => void;
@@ -71,7 +76,7 @@ function EmotionTable({
   onButtonLeftClick,
   onButtonRightClick,
   onClickHeader,
-}: Props) {
+}: any) {
   const tableRef = useRef(null);
   const [ascHeader, setAscHeader] = useState("");
 
@@ -80,7 +85,7 @@ function EmotionTable({
       <Table ref={tableRef}>
         <thead>
           <tr>
-            {columns.map((column, index) => (
+            {columns.map((column:any, index:number) => (
               <TableHeader
                 onClick={() => {
                   if (column.key) {
@@ -99,13 +104,13 @@ function EmotionTable({
         </thead>
 
         <tbody>
-          {data.map((item, rowIndex) => (
+          {data.map((item: any, rowIndex: any) => (
             <tr key={rowIndex}>
-              {columns.map((column, colIndex) => (
+              {columns.map((column: any, colIndex:any) => (
                 <TableData key={colIndex}>
                   {column.render
                     ? column.render(item, rowIndex, columns)
-                    : item[column.name]}
+                    : item[column.name || '']}
                 </TableData>
               ))}
             </tr>

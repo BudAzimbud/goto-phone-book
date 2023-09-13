@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -22,8 +22,8 @@ const buttonStyles = {
 };
 
 type ButtonProps = {
-  variant: 'primary' | 'secondary' | 'danger' | 'success';
-  children: React.ReactNode;
+  variant?: "primary" | "secondary" | "danger" | "success";
+  children?: React.ReactNode;
 };
 
 const Button = styled.button<ButtonProps>`
@@ -35,10 +35,10 @@ const Button = styled.button<ButtonProps>`
   transition: background-color 0.3s ease; /* Transition effect for background color */
 
   &:hover {
-    background-color: black
+    background-color: black;
   }
 
-  ${({ variant }) => buttonStyles[variant] || buttonStyles.primary};
+  ${({ variant }) => buttonStyles[variant || 'primary'] || buttonStyles.primary};
 `;
 
 export default Button;
