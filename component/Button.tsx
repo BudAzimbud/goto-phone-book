@@ -1,4 +1,4 @@
-/** @jsxImportSource @emotion/react */
+import React from 'react'
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -21,7 +21,12 @@ const buttonStyles = {
   `,
 };
 
-const Button = styled.button`
+type ButtonProps = {
+  variant: 'primary' | 'secondary' | 'danger' | 'success';
+  children: React.ReactNode;
+};
+
+const Button = styled.button<ButtonProps>`
   border: none; /* No border */
   border-radius: 4px; /* Rounded corners */
   padding: 10px 20px; /* Padding for the button */

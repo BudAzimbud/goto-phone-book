@@ -60,7 +60,7 @@ type Props = {
   page: number;
   onButtonRightClick: () => void;
   onButtonLeftClick: () => void;
-  onClickHeader: () => void;
+  onClickHeader: (col:string) => void;
 };
 
 function EmotionTable({

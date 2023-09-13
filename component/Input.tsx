@@ -23,9 +23,7 @@ const IconContainer = styled.div`
   margin-left: 10px;
 `;
 
-
-const EmotionInput = ({icon,...props}) => {
-  const [emotion, setEmotion] = useState('');
+const Input = ({icon,...props}) => {
 
   return (
     <InputContainer>
@@ -39,4 +37,4 @@ const EmotionInput = ({icon,...props}) => {
   );
 };
 
-export default EmotionInput;
+export default Input;
