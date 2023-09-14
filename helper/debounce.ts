@@ -1,13 +1,13 @@
 const debounce = (func: Function, wait: number) => {
-    let timerId: any;
+    let timerId: ReturnType<typeof setTimeout>;
+
     return (...args: any) => {
-        if (timerId) clearTimeout(timerId);
+        clearTimeout(timerId);
+
         timerId = setTimeout(() => {
             func(...args);
         }, wait);
     };
 };
 
-export {
-    debounce
-}
+export { debounce };
